@@ -10,3 +10,5 @@ platformer type games I wanted to make space shoot like space invaders. So the s
 2. **alpha:** My initial version
 3. **beta:** Almost finished 
 4. **remake:** My ideal version
+
+![game menu](main.png "menu")
