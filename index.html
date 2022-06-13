@@ -4,19 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/jpg" href="./include/skins/skinN01.png"/>
-        <meta name="description" content="16bit like shoot-em up game">
-        <meta name="keywords" content="HTML, CSS, JavaScript 16bit">
-        <meta name="author" content="Andrew Tuček">
-        <link rel="stylesheet" href="css/min_ui.css">
-        <!--
-            Záleží na posloupnosti souborů
-            skripty v hlavně mají prioritu
-        -->
-        <script src="include/code/TwoD.js"></script>
-        <script src="js/source.js"></script>
+        <link rel="stylesheet" href="css/ui.css">
     </head>
     <body>
+
+
+        
         <section class="UI">
             <div class="UI__menu">
             <h1 class="UI__menu__headline">SpaceLads</h1>
@@ -27,11 +20,13 @@
                 <li class="UI__menu__links__link" onclick="howTOPlay()">How_to_play</li>
                 <li class="UI__menu__links__link" onclick="document.querySelector(`.credits`).style.display = `block`">credits</li>
             </ul>
-            <p>code and art by <span style="color:#de1738">Andrew Tuček</span></p>
+            <p>code and art by <span style="color:red">Andrew Tuček</span></p>
             <p>copyright 2020</p>
         </div>
         </section>
 
+
+        <div class="game--message"></div>
 
         <section class="store">
             <div class="store__selector">
@@ -51,12 +46,15 @@
 
 
         <section class="paused">
+            <div class="paused__efect1"></div>
+            <div class="paused__efect0"></div>
             <div class="paused__content">
-                <h1 style="color: #fafbbd;"><span style="color: #de1738;">G</span>ame Paused</h1>
-                <p style="color: #fafbbd;">To unpause the game,press esc on keyboard</p>
+                <h1>Game Paused</h1>
+                <i>to unpause press esc</i>
                 <button onclick="reset()">restart</button>
                 <button onclick="location.reload()">quit</button>
             </div>
+            <div class="paused__opacity"></div>
         </section>
 
 
@@ -67,6 +65,7 @@
                 <div class="credits__content__list" >
                     <h1 class="credits__content__list--programmer">Main.programmer[0] = Andrew.Tuček()</h1></br>
                     <h1 class="credits__content__list--designer">M4iN D3siGn3r = 4ndr3w Tuč3k</h1>
+                    <h1 style="font-family: arcade;">Mental support: Michelle Bendova</h1>
                 </div>
             </div>
         </section>
@@ -75,8 +74,8 @@
         <section class="HowToPlay">
             <div class="HowToPlay__content">
                 <h1>How To Play</h1>
-                <p>The game is simple, kill as many enemies as you can and collect money.</p>
-                <p>On battlefield you can spot yellow rects, they are your little helpers, they throw enemy away</p>
+                <p>The game is very simple,shoot down as many aliens as you can.</p>
+                <p>On battlefield you can spot blue rects, they are your little helpers, they throw enemy away</p>
                 <p>you also can spot health aid and money, pick em up!</p>
                 <p>last thing, watch out for asteroids</p>
                 <br>
@@ -90,11 +89,16 @@
                 <br>
                 <br>
                 <h2>Store</h2>
-                <p>in store you have Two sections,1st is for skins 2nd is for upgrades</p>
-                <p>you can upgrade your spaceship with faster engines or blasters</p>
+                <p>in store you have Two sections,1 skins 2 upgrades</p>
+                <p>you can upgrade your boat with faster engines or blasters</p>
                 <p>Each upgrade cost 10coins, max 20 blasters max 15 engines</p>
                 <div class="HowToPlay__content__red">close</div>
             </div>
         </section>
+
+        <script src="include/code/TwoD.js" async defer></script>
+        <script src="js/source.js" async defer></script>
+        
+    
     </body>
 </html>

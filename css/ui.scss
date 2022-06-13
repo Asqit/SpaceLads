@@ -6,20 +6,6 @@
 	font-family: arcade;
 	src: url(../include/gfx/arcade.TTF);
 }
-//TwoD_colors.wicked_skies
-$black:#00000f;
-$v-dark-blue: #000133;
-$dark-blue: #000356;
-$blue: #0203e2;
-$sky-blue: #00cdfe;
-$purple: #680880;
-$pink: #fe007d;
-$red: #de1738;
-$red-ish: #fd5e53;
-$orange: #fc9c54;
-$yellow: #ffe373;
-$light-yellow:#fafbbd;
-
 * {
 	padding: 0;
 	margin: 0;
@@ -32,29 +18,39 @@ body {
 	overflow: hidden;
 }
 
+.game--message{
+	position: fixed;
+	width:100%;
+	text-align: center;
+	z-index:100000;
+	height:10vh;;
+	top: 20%;
+	visibility: hidden;
+	color: yellow;
+	font-family: yoster;
+	font-size:60px;
+}
+
 .UI {
 	width: 100%;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 961;
-	position:fixed;
-	top: 0;
-	left: 0;
+	background-color: #292929;
 	color: white;
 	text-align: center;
 	&__menu {
 		width: 50%;
 		height: 50%;
 		&__headline {
-			font-size: 8vw;
+			font-size: 80px;
 			font-family: yoster;
-			color:$red;
-			-webkit-text-stroke: 1px $yellow;
-			text-decoration: underline;
+			background: -webkit-linear-gradient(rgb(64, 133, 224), #fff);
+			-webkit-background-clip: text;
+			background-clip: text;
 			padding: 5px;
-
+			-webkit-text-fill-color: transparent;
 		}
 
 		&__links {
@@ -63,19 +59,19 @@ body {
 				cursor: pointer;
 				list-style-type: none;
 				padding: 5px;
-				font-size:3vw;
-				color: $light-yellow;
+				font-size: 40px;
+				color: rgb(64, 133, 224);
 			}
 			&__link:hover {
-				color:$red;
+				color: #fff;
 			}
 		}
 		p {
 			padding: 5px;
-			color: $light-yellow;
 		}
 	}
 }
+
 .store {
 	width: 90%;
 	height: 90vh;
@@ -86,23 +82,23 @@ body {
 	transition: 0.5s;
 	font-family: arcade;
 	z-index: 999;
-	background-color: $dark_blue;
-	border: 2px dashed $red;
+	background-color: #0b317a;
+	border: 2px dashed #ff7272;
 	display: flex;
 	flex-direction: row;
 	.w {
 		width: 200px;
 		height: 50px;
 		border-top:5px solid white;
-		border-bottom: 5px solid $black;
+		border-bottom: 5px solid black;
 		font-family: arcade;
-		border-right: 5px solid $black;
+		border-right: 5px solid black;
 		cursor: pointer;
 	}
 	&__selector {
 		width: 20%;
 		height: 100%;
-		border-right: 2px dashed $red;
+		border-right: 2px dashed #ff7272;
 		display: flex;
 		flex-direction: column;
 		&__sel1,
@@ -111,8 +107,8 @@ body {
 			width: 100%;
 			height: 5%;
 			background-color: transparent;
-			color: $red;
-			border: 2px dashed $red;
+			color: #ff7272;
+			border: 2px dashed #ff7272;
 			cursor: pointer;
 		}
 	}
@@ -121,7 +117,7 @@ body {
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		color: $red-ish;
+		color: #ff7272;
 		&__headline {
 			width: 100%;
 			height: 10%;
@@ -133,7 +129,7 @@ body {
 			width: 100%;
 			height: 10%;
 			text-align: center;
-			color: $yellow;
+			color: #f1db4f;
 			padding: 10px;
 			font-family: yoster;
 		}
@@ -160,39 +156,55 @@ body {
 	width: 100%;
 	height: 100vh;
 	background-color: transparent;
-	z-index: 960;
-	display: none;
+	z-index: 1001;
 	position: fixed;
+	transition: 0.5s;
+	transform: translateX(-100%);
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.384);
-	&__content{
-		width:80%;
-		height:80%;
-		margin:5%;
-		margin-left: 10%;
-		margin-right: 10%;
+	&__efect0 {
+		width: 30%; //30
+		height: 100%;
+		background-color: #c52b30;
+		z-index: 1001;
+		transform: rotate(-20deg); //-20deg
+		position: fixed;
+	}
+	&__efect1 {
+		width: 25%; //25
+		height: 100%;
+		background-color: #373485;
+		z-index: 1002;
+		transform: rotate(-10deg); //-10deg
+		position: fixed;
+	}
+	&__content {
+		width: 20%;
+		height: 100%;
+		background-color: #33a0d1;
+		z-index: 1003;
+		position: fixed;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
-		h1{
-			font-size: 60px;
+		h1 {
+			font-size: 50px;
+			font-family: yoster;
 		}
-		p{
-			font-size: 30px;
-			font-family: arcade;
+		button {
+			width: 90%;
+			margin-top: 20px;
 		}
-		button{
-			width:100px;
-			height: 30px;
-			border-top:5px solid $light-yellow;
-			border-bottom: 5px solid $black;
-			font-family: arcade;
-			background-color:gray;
-			border-right: 5px solid $black;
-			cursor: pointer;
+		.stats {
+			padding: 20px;
 		}
+	}
+	&__opacity {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		z-index: 1000;
+		background-color: rgba(0, 0, 0, 0.795);
 	}
 }
 
@@ -204,15 +216,15 @@ body {
 	display: none;
 	left: 0;
 	z-index: 9999;
-	background-color: $light-yellow;
-	background-image: linear-gradient(242deg, $light-yellow 0%, $blue 50%, $red 100%);
+	background-color: #ffffff;
+	background-image: linear-gradient(242deg, #ffffff 0%, #6284ff 50%, #ff0000 100%);
 
 	&__content {
 		width: 90%;
 		height: 90%;
 		margin-left: 5%;
 		margin-top: 2.5%;
-		background-color: $black;
+		background-color: black;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -222,7 +234,6 @@ body {
 			font-size: 60px;
 			font-family: yoster;
 			padding: 20px;
-			color: $sky-blue;
 		}
 		&__list{
 			font-weight: 100;
@@ -245,11 +256,8 @@ body {
 		width:50%;
 		height:50%;
 		letter-spacing: 1.2px;
-		margin-left:25%;
-		margin-right: 25%;
-		margin-bottom: 10%;
-		margin-top: 15%;
-		background-color: $dark-blue;
+		margin:25%;
+		background-color: #0b317a;
 		color: white;
 		overflow: auto;
 		h1,h2,p{
@@ -260,7 +268,7 @@ body {
 			width:90%;
 			height:20px;
 			cursor: pointer;
-			background-color: $red-ish;
+			background-color: red;
 			margin:5px 5%;
 			text-align: center;
 		}

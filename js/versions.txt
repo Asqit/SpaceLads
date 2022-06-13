@@ -1,0 +1,18 @@
+Alpha Ver. 1.0 (1.1.2021)
+-base version of the game
+-well known issues : 
+1)když se resizuje před spuštěním,tak vyskakuje error,protože Area je v tu chívly null
+2)když stikne load button a chybí save tak hra varuje a pak crashne
+
+
+
+
+Alpha Ver. 1.1 (13.1.2021)
+-fixed issues 1,2
+
+
+
+Alpha Ver. 1.2 (20.1.2021)
+-opravený load
+-zafixovaná rychlost střelby a movement 
+-pomalejší rychlost laserů (lazzy effect) je lepší 
