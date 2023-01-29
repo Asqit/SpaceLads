@@ -1,9 +1,3 @@
-// ===================================================
-// Project: Spacelads
-// Author: Ondřej Tuček
-// Date: 23.3.2021
-// ===================================================
-
 let star__app = new RenderWindow(innerWidth, innerHeight, '#00000f', 960);
 let star__ctx = star__app.CTX();
 let star_id;
@@ -86,7 +80,7 @@ const hero = {
 	y: innerHeight / 2, //počáteční y pozice
 	w: 50, //šířka kolizního čtverce
 	h: 50, //výška kolizního čtverce
-	color: './include/skins/skinN01.png', //současný obrázek hřáče
+	color: './assets/skins/skin1.png', //současný obrázek hřáče
 	hp: 100, //životy
 	score: 0, //skore
 	gunCld: 0, //ochlazení zbraňe
@@ -229,9 +223,9 @@ class Enemy {
 	constructor() {
 		//pole stringů,uchovává udáje o URL obrázcích
 		let skins = [
-			'./include/gfx/enemy.png',
-			'./include/gfx/enemy0.png',
-			'./include/gfx/enemy1.png',
+			'./assets/gfx/enemy.png',
+			'./assets/gfx/enemy0.png',
+			'./assets/gfx/enemy1.png',
 		];
 		let type = ['SMART', 'DUMB']; //typ, udává nepřitelovo chování
 		this.x = Math.floor(Math.random() * innerWidth);
@@ -350,10 +344,8 @@ class Bullet {
 	};
 	update = function () {
 		if (this.y < 0 || this.y > app.h) this.active = false; //pokud je střela.y menší než 0 potom zabí
-		if (this.owner == 'PLAYER')
-			this.y -=
-				1000 *
-				loopStuff.dt; //pokud je vlastní hráč potom střela letí nahoru
+		if (this.owner == 'PLAYER') this.y -= 1000 * loopStuff.dt;
+		//pokud je vlastní hráč potom střela letí nahoru
 		//pokud je vlastní nepřitel a počet vln je mezi 11 a 49 potom leť dolů
 		else if (this.owner == 'ENEMY' && waves >= 10 && waves < 50)
 			this.y += 800 * loopStuff.dt;
@@ -396,7 +388,7 @@ class Star {
 
 		//pokud je šance větší než 4.5 potom změň obrázek
 		if (this.chance >= 4.5) {
-			this.color = './include/gfx/asteroid.png';
+			this.color = './assets/gfx/asteroid.png';
 		}
 	}
 	render = function () {
@@ -429,8 +421,8 @@ class Collectable {
 		this.color;
 		//je typ hp --> ano nastav obrázek na aid.png : ne nastav na money.png;
 		this.type == 'HP'
-			? (this.color = './include/gfx/aid.png')
-			: (this.color = './include/gfx/money.png');
+			? (this.color = './assets/gfx/aid.png')
+			: (this.color = './assets/gfx/money.png');
 		if (this.chance >= 4.8) this.active = true; //pokud je šance pro život vetší než 4.8 žije, menší = ne žije
 	}
 	render = function () {
@@ -808,20 +800,3 @@ window.addEventListener('resize', () => {
 		app.Resize(innerWidth, innerHeight);
 	}
 });
-
-/*
- _________________________________________
-|         POTÍŽE a výčty                 |
-|   1. blbý load stránky...opraveno      |
-|   2. no finity state machine           |
-|   3. herní engine by byl...            |
-|   ...úžasnej                           |
-|   4. překážky nemají responzivní pozice|
-|   ....opraveno                         |
-|_______         ________________________|
-        |___  __|
-            ||    ______
-            \\ __|______|____ 
-             \\ |*|-|*|---_
-               |    __    |  
-*/

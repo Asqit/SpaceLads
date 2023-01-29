@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/jpg" href="./include/skins/skinN01.png"/>
+        <link rel="shortcut icon" type="image/jpg" href="./assets/skins/skinN01.png"/>
         <meta name="description" content="16bit like shoot-em up game">
         <meta name="keywords" content="HTML, CSS, JavaScript 16bit">
-        <meta name="author" content="Andrew Tuček">
-        <link rel="stylesheet" href="css/min_ui.css">
-        <!--
-            Záleží na posloupnosti souborů
-            skripty v hlavně mají prioritu
-        -->
-        <script src="include/code/TwoD.js"></script>
-        <script src="js/source.js"></script>
+        <meta name="author" content="Ondřej Tuček">
+        <link rel="stylesheet" href="./style/dist/main.min.css">
+        <script src="./scripts/TwoD.js"></script>
+        <script src="./scripts/source.js"></script>
     </head>
     <body>
         <section class="UI">
@@ -24,10 +20,10 @@
                 <li class="UI__menu__links__link" onclick="init(`n`)">New Game</li>
                 <li class="UI__menu__links__link" onclick="init(`l`)">load</li>
                 <li class="UI__menu__links__link s" >store</li>
-                <li class="UI__menu__links__link" onclick="howTOPlay()">How_to_play</li>
+                <li class="UI__menu__links__link" onclick="howTOPlay()">How to play</li>
                 <li class="UI__menu__links__link" onclick="document.querySelector(`.credits`).style.display = `block`">credits</li>
             </ul>
-            <p>code and art by <span style="color:#de1738">Andrew Tuček</span></p>
+            <p>code and art by <span style="color:#de1738">Ondrej Tucek</span></p>
             <p>copyright 2020</p>
         </div>
         </section>
