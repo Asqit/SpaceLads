@@ -1,0 +1,42 @@
+@font-face {
+	font-family: arcade;
+	src: url("../../assets/fonts/arcade.TTF");
+}
+
+@font-face {
+	font-family: yoster;
+	src: url("../../assets/fonts/yoster.ttf");
+}
+
+// Font families
+$ff-primary: yoster, monospace;
+$ff-highlight: arcade, monospace;
+
+// Colors
+$black: #00000f;
+$blue-0: #000133;
+$blue-1: #000356;
+$blue-2: #0203e2;
+$blue-3: #00cdfe;
+$purple: #680880;
+$pink: #fe007d;
+$red-0: #de1738;
+$red-1: #fd5e53;
+$orange: #fc9c54;
+$yellow-0: #ffe373;
+$yellow-1: #fafbbd;
+
+@mixin ChicagoBorder() {
+	border-top: 1px solid $blue-2;
+	border-right: 1px solid $blue-2;
+	border-bottom: 1px solid $blue-1;
+	border-left: 1px solid $blue-1;
+
+	&:hover,
+	&:active {
+		border-top-color: $blue-1;
+		border-right-color: $blue-1;
+		border-bottom-color: $blue-2;
+		border-left-color: $blue-2;
+	}
+}
