@@ -1,96 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/jpg" href="./assets/skins/skinN01.png"/>
-        <meta name="description" content="16bit like shoot-em up game">
-        <meta name="keywords" content="HTML, CSS, JavaScript 16bit">
-        <meta name="author" content="Ondřej Tuček">
-        <link rel="stylesheet" href="./style/dist/main.min.css">
-        <script src="./scripts/TwoD.js"></script>
-        <script src="./scripts/source.js"></script>
-    </head>
-    <body>
-        <section class="UI">
-            <div class="UI__menu">
-            <h1 class="UI__menu__headline">SpaceLads</h1>
-            <ul class="UI__menu__links">
-                <li class="UI__menu__links__link" onclick="init(`n`)">New Game</li>
-                <li class="UI__menu__links__link" onclick="init(`l`)">load</li>
-                <li class="UI__menu__links__link s" >store</li>
-                <li class="UI__menu__links__link" onclick="howTOPlay()">How to play</li>
-                <li class="UI__menu__links__link" onclick="document.querySelector(`.credits`).style.display = `block`">credits</li>
-            </ul>
-            <p>code and art by <span style="color:#de1738">Ondrej Tucek</span></p>
-            <p>copyright 2020</p>
-        </div>
-        </section>
-
-
-        <section class="store">
-            <div class="store__selector">
-                <button class="store__selector__sel1" onclick="changeStoreContent(`skins`)">skins</button>
-                <button class="store__selector__sel2" onclick="changeStoreContent(`guns`)">upgrades</button>
-                <button class="store__selector__sel3" onclick="document.querySelector(`.store`).style.transform = `translatex(150%)`">close</button>
-            </div>
-            <div class="store__content">
-                <h1 class="store__content__headline"></h1>
-                <h1 class="store__content__balance"></h1>
-                <div class="store__content__content">
-
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="paused">
-            <div class="paused__content">
-                <h1 style="color: #fafbbd;"><span style="color: #de1738;">G</span>ame Paused</h1>
-                <p style="color: #fafbbd;">To unpause the game,press esc on keyboard</p>
-                <button onclick="reset()">restart</button>
-                <button onclick="location.reload()">quit</button>
-            </div>
-        </section>
-
-
-
-        <section class="credits">
-            <div class="credits__content">
-                <h1 class="s">Credits</h1>
-                <div class="credits__content__list" >
-                    <h1 class="credits__content__list--programmer">Main.programmer[0] = Andrew.Tuček()</h1></br>
-                    <h1 class="credits__content__list--designer">M4iN D3siGn3r = 4ndr3w Tuč3k</h1>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="HowToPlay">
-            <div class="HowToPlay__content">
-                <h1>How To Play</h1>
-                <p>The game is simple, kill as many enemies as you can and collect money.</p>
-                <p>On battlefield you can spot yellow rects, they are your little helpers, they throw enemy away</p>
-                <p>you also can spot health aid and money, pick em up!</p>
-                <p>last thing, watch out for asteroids</p>
-                <br>
-                <br>
-                <h2>Controls</h2>
-                <p>W - move up</p>
-                <p>S - move down</p>
-                <p>A - move left</p>
-                <p>D - move right</p>
-                <p>SpaceBar - shoot</p>
-                <br>
-                <br>
-                <h2>Store</h2>
-                <p>in store you have Two sections,1st is for skins 2nd is for upgrades</p>
-                <p>you can upgrade your spaceship with faster engines or blasters</p>
-                <p>Each upgrade cost 10coins, max 20 blasters max 15 engines</p>
-                <div class="HowToPlay__content__red">close</div>
-            </div>
-        </section>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Spacelads</title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>

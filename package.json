@@ -1,17 +1,17 @@
 {
-	"name": "spacelads",
-	"version": "1.2.0",
-	"description": "A retrostyled space shooter",
-	"main": "./js/source.js",
-	"repository": "https://github.com/Asqit/SpaceLads.git",
-	"author": "Ondřej Tuček <ondrejtucek9@gmail.com>",
-	"license": "MIT",
-	"private": false,
-	"scripts": {
-		"sass-dev": "sass --no-source-map --watch ./style/src/main.scss ./style/dist/main.css",
-		"sass-prod": "sass --no-source-map --style compressed ./style/src/main.scss ./style/dist/main.min.css"
-	},
-	"dependencies": {
-		"sass": "^1.57.1"
-	}
+  "name": "spacelads",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.3",
+    "sass": "^1.62.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
 }
