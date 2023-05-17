@@ -1,15 +1,15 @@
 @font-face {
 	font-family: arcade;
-	src: url("../../assets/fonts/arcade.TTF");
+	src: url("/arcade.ttf");
 }
 
 @font-face {
 	font-family: yoster;
-	src: url("../../assets/fonts/yoster.ttf");
+	src: url("/yoster.ttf");
 }
 
 // Font families
-$ff-primary: yoster, monospace;
+$ff-primary: yoster;
 $ff-highlight: arcade, monospace;
 
 // Colors

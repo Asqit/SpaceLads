@@ -1,4 +1,5 @@
 import { Menu } from "./states/Menu";
+import { Color } from "./utils/Color";
 import { Frame } from "./utils/Frame";
 import { StateManager } from "./utils/StateManager";
 
@@ -14,7 +15,7 @@ export class Game {
 	constructor() {
 		let canvas = this.frame.getCanvas;
 
-		canvas.style.backgroundColor = "#000000";
+		canvas.style.backgroundColor = Color.black;
 
 		this.ctx = canvas.getContext("2d");
 		this.stateManager.addState(new Menu(this.stateManager, this.ctx!));
@@ -56,7 +57,7 @@ export class Game {
 		if (this.ctx) {
 			this.ctx.font = "16px monospace";
 			this.ctx.fillStyle = "#ffffff";
-			this.ctx.fillText(this.fps.toString(), 30, 30);
+			this.ctx.fillText(this.fps.toString(), 30, Game.HEIGHT - 16);
 		}
 	}
 

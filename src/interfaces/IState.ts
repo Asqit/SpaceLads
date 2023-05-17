@@ -1,5 +1,7 @@
 import { StateManager } from "~/utils/StateManager";
 
+export type Tuple<T, J> = [T, J];
+
 /**
  * **Description:** This interface represents how State should be represented
  * in game
@@ -7,7 +9,7 @@ import { StateManager } from "~/utils/StateManager";
 export interface IState {
 	stateManRef: StateManager;
 	ctx: CanvasRenderingContext2D;
-	props?: any;
+	scene?: Tuple<string, HTMLElement>;
 	onEnter: () => void;
 	onExit: () => void;
 	onPause: () => void;
