@@ -1,5 +1,6 @@
 import { Game } from "~/Game";
 import { Entity } from "./Entity";
+import { Color } from "~/utils/Color";
 
 export type LaserOwner = "ENEMY" | "PLAYER";
 
@@ -11,7 +12,7 @@ export class Laser extends Entity {
 	constructor(x: number, y: number, owner: LaserOwner) {
 		super(x, y, 2, 8, "LASER");
 		this.owner = owner;
-		this.color = this.owner === "ENEMY" ? "red" : "blue";
+		this.color = this.owner === "ENEMY" ? Color["red-1"] : Color["blue-3"];
 		this.speed = this.owner === "ENEMY" ? 800 : -800;
 	}
 

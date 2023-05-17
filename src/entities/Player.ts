@@ -1,10 +1,18 @@
 import { KeyHandler } from "~/utils/Input";
 import { Entity } from "./Entity";
 import { Game } from "~/Game";
+import { EntityHandler } from "~/utils/EntityHandler";
+import { Laser } from "./Laser";
+import { Color } from "~/utils/Color";
+import { Maths, Vector2D } from "~/utils/Math";
+import { Particle } from "./Particle";
+import { IEntity } from "~/interfaces/IEntity";
 
 interface PlayerSave {
 	speed: number;
 	cooldownDecrement: number;
+	maxWaves: number;
+	highScore: number;
 }
 
 class Player extends Entity {
@@ -13,11 +21,14 @@ class Player extends Entity {
 	private speedY: number = 0;
 	private health: number = 100;
 	private lastHit: number = Date.now();
+	private handler: EntityHandler | undefined;
+	private score: number = 0;
+	private waves: number = 1;
 
 	// Upgradable properties
 	private speed: number = 250;
 	private cooldown: number = 0;
-	private cooldownDecrement = 2.5;
+	private cooldownDecrement = 3;
 
 	// statics
 	private static SAVE_KEY = "spacelads/player_save";
@@ -40,14 +51,24 @@ class Player extends Entity {
 
 	private handleSave() {
 		if (!localStorage.getItem(Player.SAVE_KEY)) {
-			const payload: PlayerSave = { speed: this.speed, cooldownDecrement: this.cooldownDecrement };
+			const payload: PlayerSave = {
+				speed: this.speed,
+				cooldownDecrement: this.cooldownDecrement,
+				highScore: this.score,
+				maxWaves: this.waves,
+			};
 
 			localStorage.setItem(Player.SAVE_KEY, JSON.stringify(payload));
 			return;
 		}
 
 		let prev: PlayerSave = JSON.parse(localStorage.getItem(Player.SAVE_KEY)!);
-		prev = { ...prev, speed: this.speed, cooldownDecrement: this.cooldownDecrement };
+		prev = {
+			speed: this.speed,
+			cooldownDecrement: this.cooldownDecrement,
+			highScore: prev.highScore > this.score ? prev.highScore : this.score,
+			maxWaves: prev.maxWaves > this.waves ? prev.maxWaves : this.waves,
+		};
 		localStorage.setItem(Player.SAVE_KEY, JSON.stringify(prev));
 	}
 
@@ -104,15 +125,49 @@ class Player extends Entity {
 	}
 
 	private shoot() {
-		if (this.cooldown <= 0) {
-			// shoot();
+		if (this.cooldown <= 0 && this.handler) {
+			this.handler.entities.push(new Laser(this.x + this.w / 2 - 1, this.y, "PLAYER"));
+
+			for (let i = 0; i < 10; i++) {
+				const particle = new Particle(
+					this.x + this.w / 2,
+					this.y,
+					2,
+					2,
+					Color.orange,
+					new Vector2D(Maths.rand(-50, 50), -300),
+					1000
+				);
+
+				this.handler.entities.push(particle);
+			}
+
 			this.cooldown = 120;
 		}
 	}
 
-	private renderHitbox(step: number, ctx: CanvasRenderingContext2D) {
+	private renderHitbox(ctx: CanvasRenderingContext2D) {
 		ctx.strokeStyle = "#fff";
 		ctx.strokeRect(this.x, this.y, this.w, this.h);
+	}
+
+	private renderHUD(ctx: CanvasRenderingContext2D) {
+		// Health bar
+		ctx.fillStyle = Color.orange;
+		ctx.fillRect(this.x - this.w, this.y + this.h * 2, 100, 4);
+
+		ctx.fillStyle = Color["red-1"];
+		ctx.fillRect(this.x - this.w, this.y + this.h * 2, this.health, 4);
+
+		// Weapon Cool-down
+		const clampCooldown = Maths.clamp(this.cooldown, 0, 100);
+		ctx.fillStyle = Color["yellow-1"];
+		ctx.fillRect(this.x - this.w, this.y + this.h * 2 + 8, clampCooldown, 4);
+
+		// Score & Waves
+		ctx.font = "yoster 16px";
+		ctx.fillText(`Score: ${this.score}`, 30, 30);
+		ctx.fillText(`Wave: ${this.waves}`, 30, 60);
 	}
 
 	public hit() {
@@ -136,7 +191,12 @@ class Player extends Entity {
 	}
 
 	public render(step: number, ctx: CanvasRenderingContext2D) {
-		this.renderHitbox(step, ctx);
+		this.renderHitbox(ctx);
+		this.renderHUD(ctx);
+	}
+
+	public assignHandler(entityHandler: EntityHandler) {
+		this.handler = entityHandler;
 	}
 }
 
