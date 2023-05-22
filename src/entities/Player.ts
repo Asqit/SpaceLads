@@ -13,6 +13,7 @@ interface PlayerSave {
 	cooldownDecrement: number;
 	maxWaves: number;
 	highScore: number;
+	coins: number;
 }
 
 class Player extends Entity {
@@ -24,9 +25,10 @@ class Player extends Entity {
 	private handler: EntityHandler | undefined;
 	private score: number = 0;
 	private waves: number = 1;
+	private coins: number = 0;
 
 	// Upgradable properties
-	private speed: number = 250;
+	private speed: number = 350;
 	private cooldown: number = 0;
 	private cooldownDecrement = 3;
 
@@ -56,6 +58,7 @@ class Player extends Entity {
 				cooldownDecrement: this.cooldownDecrement,
 				highScore: this.score,
 				maxWaves: this.waves,
+				coins: this.coins,
 			};
 
 			localStorage.setItem(Player.SAVE_KEY, JSON.stringify(payload));
@@ -68,6 +71,7 @@ class Player extends Entity {
 			cooldownDecrement: this.cooldownDecrement,
 			highScore: prev.highScore > this.score ? prev.highScore : this.score,
 			maxWaves: prev.maxWaves > this.waves ? prev.maxWaves : this.waves,
+			coins: this.coins,
 		};
 		localStorage.setItem(Player.SAVE_KEY, JSON.stringify(prev));
 	}
@@ -126,21 +130,7 @@ class Player extends Entity {
 
 	private shoot() {
 		if (this.cooldown <= 0 && this.handler) {
-			this.handler.entities.push(new Laser(this.x + this.w / 2 - 1, this.y, "PLAYER"));
-
-			for (let i = 0; i < 10; i++) {
-				const particle = new Particle(
-					this.x + this.w / 2,
-					this.y,
-					2,
-					2,
-					Color.orange,
-					new Vector2D(Maths.rand(-50, 50), -300),
-					1000
-				);
-
-				this.handler.entities.push(particle);
-			}
+			this.handler.entities.push(new Laser(this.x + this.w / 2 - 2, this.y, "PLAYER"));
 
 			this.cooldown = 120;
 		}
@@ -164,10 +154,11 @@ class Player extends Entity {
 		ctx.fillStyle = Color["yellow-1"];
 		ctx.fillRect(this.x - this.w, this.y + this.h * 2 + 8, clampCooldown, 4);
 
-		// Score & Waves
+		// Score, Waves & Coins
 		ctx.font = "yoster 16px";
 		ctx.fillText(`Score: ${this.score}`, 30, 30);
 		ctx.fillText(`Wave: ${this.waves}`, 30, 60);
+		ctx.fillText(`Coins: ${this.coins}`, 30, 90);
 	}
 
 	public hit() {

@@ -51,7 +51,6 @@ export class Game {
 	}
 
 	private render(delta: number): void {
-		this.ctx?.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		this.stateManager.renderState(delta);
 
 		if (this.ctx) {

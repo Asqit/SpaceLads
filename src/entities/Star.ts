@@ -4,10 +4,10 @@ import { Game } from "~/Game";
 import { Color } from "~/utils/Color";
 
 export class Star extends Entity {
-	private speed: number = Maths.rand(50, 250);
+	private speed: number = Maths.rand(20, 50);
 
 	constructor() {
-		const w = Maths.randInt(2, 8);
+		const w = Maths.randInt(1, 4);
 		const h = w;
 		const x = Maths.randInt(0, Game.WIDTH - w);
 		const y = Maths.randInt(0, Game.HEIGHT);

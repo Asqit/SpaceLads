@@ -4,6 +4,8 @@ export type EntityID =
 	| "ADVANCED_ENEMY"
 	| "STAR"
 	| "ASTEROID"
-	| "COLLECTABLE"
 	| "PARTICLE"
-	| "LASER";
+	| "LASER"
+	| "COIN"
+	| "MED"
+	| "BOSS";
