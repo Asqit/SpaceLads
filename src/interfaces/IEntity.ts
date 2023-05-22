@@ -1,4 +1,4 @@
-import { EntityID } from "~/enums/EntityID";
+import { EntityID } from "~/entities/EntityID";
 
 export interface IEntity {
 	x: number;

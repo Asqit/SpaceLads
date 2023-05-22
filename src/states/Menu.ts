@@ -4,7 +4,7 @@ import { Doom } from "~/utils/Doom";
 import { EntityHandler } from "~/utils/EntityHandler";
 import { StateManager } from "~/utils/StateManager";
 import MenuSection from "~/sections/MenuSection";
-import player from "~/entities/Player";
+import { Game } from "~/Game";
 
 export class Menu implements IState {
 	public stateManRef: StateManager;
@@ -23,9 +23,6 @@ export class Menu implements IState {
 	public onEnter(): void {
 		this.doom.appendSection(this.scene[1]);
 
-		player.assignHandler(this.handler);
-		this.handler.entities.push(player);
-
 		for (let i = 0; i < 60; i++) {
 			this.handler.entities.push(new Star());
 		}
@@ -36,6 +33,7 @@ export class Menu implements IState {
 	public onResume(): void {}
 
 	public render(step: number): void {
+		this.ctx.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		this.handler.render(step, this.ctx);
 	}
 
