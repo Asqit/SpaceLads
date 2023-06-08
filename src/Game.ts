@@ -1,4 +1,4 @@
-import { Menu } from "./states/Menu";
+import { Play } from "./states/Play";
 import { Color } from "./utils/Color";
 import { Frame } from "./utils/Frame";
 import { StateManager } from "./utils/StateManager";
@@ -18,7 +18,7 @@ export class Game {
 		canvas.style.backgroundColor = Color.black;
 
 		this.ctx = canvas.getContext("2d");
-		this.stateManager.addState(new Menu(this.stateManager, this.ctx!));
+		this.stateManager.addState(new Play(this.stateManager, this.ctx!));
 	}
 
 	// Game Loop --------------------------------------------->

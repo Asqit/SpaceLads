@@ -23,6 +23,10 @@ export class Star extends Entity {
 		this.y += this.speed * step;
 	}
 
+	hit(): void {
+		this.isActive = false;
+	}
+
 	render(step: number, ctx: CanvasRenderingContext2D): void {
 		ctx.fillStyle = Color["yellow-1"];
 		ctx.fillRect(this.x, this.y, this.w, this.h);

@@ -4,9 +4,7 @@ import { Game } from "~/Game";
 import { EntityHandler } from "~/utils/EntityHandler";
 import { Laser } from "./Laser";
 import { Color } from "~/utils/Color";
-import { Maths, Vector2D } from "~/utils/Math";
-import { Particle } from "./Particle";
-import { IEntity } from "~/interfaces/IEntity";
+import { Maths } from "~/utils/Math";
 
 interface PlayerSave {
 	speed: number;
@@ -30,7 +28,7 @@ class Player extends Entity {
 	// Upgradable properties
 	private speed: number = 350;
 	private cooldown: number = 0;
-	private cooldownDecrement = 3;
+	private cooldownDecrement = 5;
 
 	// statics
 	private static SAVE_KEY = "spacelads/player_save";
@@ -136,7 +134,7 @@ class Player extends Entity {
 		}
 	}
 
-	private renderHitbox(ctx: CanvasRenderingContext2D) {
+	private renderHitBox(ctx: CanvasRenderingContext2D) {
 		ctx.strokeStyle = "#fff";
 		ctx.strokeRect(this.x, this.y, this.w, this.h);
 	}
@@ -161,6 +159,17 @@ class Player extends Entity {
 		ctx.fillText(`Coins: ${this.coins}`, 30, 90);
 	}
 
+	public receivePickup(pickup: Entity): void {
+		if (pickup.id === "COIN") {
+			this.coins += 1;
+			return;
+		}
+
+		if (Maths.isNumberBetween(this.health, 25, 75)) {
+			this.health += 25;
+		}
+	}
+
 	public hit() {
 		if (Date.now() <= this.lastHit + 5) {
 			return;
@@ -175,6 +184,10 @@ class Player extends Entity {
 		this.health -= 25;
 	}
 
+	public incrementScore(): void {
+		this.score += 10;
+	}
+
 	public update(step: number) {
 		this.handleWeapons();
 		this.handleMovement(step);
@@ -182,7 +195,7 @@ class Player extends Entity {
 	}
 
 	public render(step: number, ctx: CanvasRenderingContext2D) {
-		this.renderHitbox(ctx);
+		this.renderHitBox(ctx);
 		this.renderHUD(ctx);
 	}
 

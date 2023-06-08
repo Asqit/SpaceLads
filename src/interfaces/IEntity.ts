@@ -1,4 +1,4 @@
-import { EntityID } from "~/entities/EntityID";
+import { EntityID } from "~/types/EntityID";
 
 export interface IEntity {
 	x: number;
@@ -17,4 +17,6 @@ export interface IEntity {
 
 	/** A method for rendering the Entity */
 	render: (step: number, ctx: CanvasRenderingContext2D) => void;
+
+	hit: () => void;
 }

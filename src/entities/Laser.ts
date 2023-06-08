@@ -6,9 +6,9 @@ import { Vector2D } from "~/utils/Math";
 export type LaserOwner = "ENEMY" | "PLAYER";
 
 export class Laser extends Entity {
-	private owner: LaserOwner = "PLAYER";
+	public owner: LaserOwner = "PLAYER";
 	private color: string = "#ffffff";
-	private speed: number = 800;
+	private speed: number = 950;
 	private trail: Vector2D[] = [];
 	private MAX_TRAIL_LENGTH: number = 10;
 
@@ -16,7 +16,7 @@ export class Laser extends Entity {
 		super(x, y, 4, 16, "LASER");
 		this.owner = owner;
 		this.color = Color["red-1"];
-		this.speed = this.owner === "ENEMY" ? 800 : -800;
+		this.speed = this.owner === "ENEMY" ? 950 : -950;
 	}
 
 	private addTrail() {
@@ -25,6 +25,10 @@ export class Laser extends Entity {
 		if (this.trail.length > this.MAX_TRAIL_LENGTH) {
 			this.trail.shift();
 		}
+	}
+
+	hit(): void {
+		this.isActive = false;
 	}
 
 	update(step: number): void {

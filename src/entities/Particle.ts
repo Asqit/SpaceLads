@@ -16,6 +16,10 @@ export class Particle extends Entity {
 		}
 	}
 
+	hit(): void {
+		this.isActive = false;
+	}
+
 	public update(step: number): void {
 		if (this.x < 0) this.isActive = false;
 		if (this.x > Game.WIDTH) this.isActive = false;

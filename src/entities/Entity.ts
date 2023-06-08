@@ -1,4 +1,4 @@
-import { EntityID } from "./EntityID";
+import { EntityID } from "~/types/EntityID";
 import { IEntity } from "~/interfaces/IEntity";
 
 /**
@@ -34,4 +34,9 @@ export abstract class Entity implements IEntity {
 	 * @param ctx canvas context.
 	 */
 	abstract render(step: number, ctx: CanvasRenderingContext2D): void;
+
+	/**
+	 * A method for taking and handling damage.
+	 */
+	abstract hit(): void;
 }

@@ -3,9 +3,9 @@ import { Circle, Maths, Rectangle, Vector2D } from "./Math";
 export class Collision {
 	public static areCirclesColliding(a: Circle, b: Circle) {
 		const RADIUS_SUM = a.radius + b.radius;
-		const DISTANCE = Maths.substrVectors(a.position, b.position);
+		const DISTANCE = Vector2D.substrVectors(a.position, b.position);
 
-		return Maths.getVectorLength(DISTANCE) <= RADIUS_SUM;
+		return Vector2D.getVectorLength(DISTANCE) <= RADIUS_SUM;
 	}
 
 	public static areRectanglesColliding(a: Rectangle, b: Rectangle) {

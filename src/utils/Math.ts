@@ -1,9 +1,89 @@
+/**
+ * Class representing 2D vector for use in cartesian grid.
+ * `Vector2D` contains helpful static methods for manipulation
+ * with vectors.
+ */
 export class Vector2D {
 	public y: number;
 	public x: number;
+
 	constructor(x?: number, y?: number) {
 		this.x = x ?? 0;
 		this.y = y ?? 0;
+	}
+
+	public distanceTo(target: Vector2D): number {
+		const xDifferences = this.x - target.x;
+		const yDifferences = this.y - target.y;
+
+		return Math.sqrt(xDifferences * xDifferences + yDifferences * yDifferences);
+	}
+
+	// Static Methods -------------------------------------------------->
+
+	public static getDistanceBetween(a: Vector2D, b: Vector2D): number {
+		const x = a.x - b.x;
+		const y = a.y - b.y;
+
+		return Math.sqrt(x * x + y * y);
+	}
+
+	public static sumVectors(a: Vector2D, b: Vector2D) {
+		return new Vector2D(a.x + b.x, a.y + b.y);
+	}
+
+	public static sumVectorArray(vectors: Vector2D[]) {
+		const LENGTH = vectors.length - 1;
+		const endResult = new Vector2D();
+
+		for (let i = 0; i < LENGTH; i++) {
+			endResult.x += vectors[i].x;
+			endResult.y += vectors[i].y;
+		}
+
+		return endResult;
+	}
+
+	public static substrVectors(a: Vector2D, b: Vector2D) {
+		return new Vector2D(a.x - b.x, a.y - b.y);
+	}
+
+	public static substrVectorArray(vectors: Vector2D[]) {
+		const LENGTH = vectors.length - 1;
+		const endResult = new Vector2D();
+
+		for (let i = 0; i < LENGTH; i++) {
+			endResult.x -= vectors[i].x;
+			endResult.y -= vectors[i].y;
+		}
+
+		return endResult;
+	}
+
+	public static getNegateVector(vector: Vector2D) {
+		return new Vector2D(-Math.abs(vector.x), -Math.abs(vector.y));
+	}
+
+	public static getScaledVector(vector: Vector2D, scalar: number) {
+		return new Vector2D(vector.x * scalar, vector.y * scalar);
+	}
+
+	public static getDividedVector(vector: Vector2D, divisor: number) {
+		return new Vector2D(vector.x / divisor, vector.y / divisor);
+	}
+
+	public static getVectorLength(vector: Vector2D) {
+		return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+	}
+
+	public static getUnitVector(vector: Vector2D) {
+		const LENGTH = this.getVectorLength(vector);
+
+		if (0 < LENGTH) {
+			return this.getDividedVector(vector, LENGTH);
+		}
+
+		return vector;
 	}
 }
 
@@ -83,86 +163,16 @@ export class Maths {
 		return n >= min && n <= max;
 	}
 
-	public static clamp(n: number, min: number, max: number) {
-		if (n >= max) {
-			return max;
-		}
-
-		if (n <= min) {
-			return min;
-		}
-
-		return n;
-	}
-
 	public static degreeToRadian(degree: number) {
 		return (degree * Math.PI) / 180;
 	}
 
-	public static limitValue(n: number, min: number, max: number) {
+	public static clamp(n: number, min: number, max: number) {
 		return Math.max(min, Math.min(max, n));
-	}
-
-	public static sumVectors(a: Vector2D, b: Vector2D) {
-		return new Vector2D(a.x + b.x, a.y + b.y);
-	}
-
-	public static sumVectorArray(vectors: Vector2D[]) {
-		const LENGTH = vectors.length - 1;
-		const endResult = new Vector2D();
-
-		for (let i = 0; i < LENGTH; i++) {
-			endResult.x += vectors[i].x;
-			endResult.y += vectors[i].y;
-		}
-
-		return endResult;
-	}
-
-	public static substrVectors(a: Vector2D, b: Vector2D) {
-		return new Vector2D(a.x - b.x, a.y - b.y);
-	}
-
-	public static substrVectorArray(vectors: Vector2D[]) {
-		const LENGTH = vectors.length - 1;
-		const endResult = new Vector2D();
-
-		for (let i = 0; i < LENGTH; i++) {
-			endResult.x -= vectors[i].x;
-			endResult.y -= vectors[i].y;
-		}
-
-		return endResult;
-	}
-
-	public static getNegateVector(vector: Vector2D) {
-		return new Vector2D(-Math.abs(vector.x), -Math.abs(vector.y));
-	}
-
-	public static getScaledVector(vector: Vector2D, scalar: number) {
-		return new Vector2D(vector.x * scalar, vector.y * scalar);
-	}
-
-	public static getDividedVector(vector: Vector2D, divisor: number) {
-		return new Vector2D(vector.x / divisor, vector.y / divisor);
-	}
-
-	public static getVectorLength(vector: Vector2D) {
-		return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
 	}
 
 	public static deepFloatCmp(a: number, b: number) {
 		let threshold = 1.0 / 8192.0;
 		return Math.abs(a - b) < threshold;
-	}
-
-	public static getUnitVector(vector: Vector2D) {
-		const LENGTH = this.getVectorLength(vector);
-
-		if (0 < LENGTH) {
-			return this.getDividedVector(vector, LENGTH);
-		}
-
-		return vector;
 	}
 }

@@ -14,6 +14,10 @@ export class AdvancedEnemy extends Entity {
 		super(x, y, 32, 32, "ADVANCED_ENEMY");
 	}
 
+	hit(): void {
+		this.isActive = false;
+	}
+
 	public update(step: number): void {
 		let dirx = player.x - this.x;
 		let diry = player.y - this.y;

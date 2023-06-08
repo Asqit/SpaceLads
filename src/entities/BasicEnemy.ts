@@ -10,6 +10,10 @@ export class BasicEnemy extends Entity {
 		this.isActive = true;
 	}
 
+	hit(): void {
+		this.isActive = false;
+	}
+
 	update(step: number): void {
 		if (this.y + this.h > Game.HEIGHT) {
 			this.isActive = false;
