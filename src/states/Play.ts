@@ -1,3 +1,4 @@
+import { Game } from "~/Game";
 import { AdvancedEnemy } from "~/entities/AdvancedEnemy";
 import { BasicEnemy } from "~/entities/BasicEnemy";
 import { Boss } from "~/entities/Boss";
@@ -34,9 +35,14 @@ export class Play implements IState {
 			this.entityHandler.entities.push(new Star());
 		}
 
+		for (let i = 0; i < 10; i++) {
+			const x = Game.WIDTH / 10 + 16;
+			this.entityHandler.entities.push(new BasicEnemy(i * x, 0));
+		}
+
 		player.assignHandler(this.entityHandler);
 		this.entityHandler.entities.push(player);
-		this.entityHandler.entities.push(new BasicEnemy(30, 0));
+		this.entityHandler.entities.push(new AdvancedEnemy());
 		this.entityHandler.entities.push(new AdvancedEnemy());
 		this.entityHandler.entities.push(new Boss(this.entityHandler));
 	}

@@ -2,13 +2,13 @@ import { KeyHandler } from "~/utils/Input";
 import { Entity } from "./Entity";
 import { Game } from "~/Game";
 import { EntityHandler } from "~/utils/EntityHandler";
-import { Laser } from "./Laser";
 import { Color } from "~/utils/Color";
 import { Maths } from "~/utils/Math";
+import { IWeapon } from "~/interfaces/IWeapon";
+import { TwinShooty } from "~/weapons/TwinShooty";
 
 interface PlayerSave {
 	speed: number;
-	cooldownDecrement: number;
 	maxWaves: number;
 	highScore: number;
 	coins: number;
@@ -20,15 +20,13 @@ class Player extends Entity {
 	private speedY: number = 0;
 	private health: number = 100;
 	private lastHit: number = Date.now();
-	private handler: EntityHandler | undefined;
 	private score: number = 0;
 	private waves: number = 1;
 	private coins: number = 0;
 
 	// Upgradable properties
 	private speed: number = 350;
-	private cooldown: number = 0;
-	private cooldownDecrement = 5;
+	private weapon: IWeapon = new TwinShooty("PLAYER", this.w, this.h);
 
 	// statics
 	private static SAVE_KEY = "spacelads/player_save";
@@ -45,7 +43,6 @@ class Player extends Entity {
 		}
 
 		const payload: PlayerSave = JSON.parse(localStorage.getItem(Player.SAVE_KEY)!);
-		this.cooldownDecrement = payload.cooldownDecrement;
 		this.speed = payload.speed;
 	}
 
@@ -53,7 +50,6 @@ class Player extends Entity {
 		if (!localStorage.getItem(Player.SAVE_KEY)) {
 			const payload: PlayerSave = {
 				speed: this.speed,
-				cooldownDecrement: this.cooldownDecrement,
 				highScore: this.score,
 				maxWaves: this.waves,
 				coins: this.coins,
@@ -66,7 +62,6 @@ class Player extends Entity {
 		let prev: PlayerSave = JSON.parse(localStorage.getItem(Player.SAVE_KEY)!);
 		prev = {
 			speed: this.speed,
-			cooldownDecrement: this.cooldownDecrement,
 			highScore: prev.highScore > this.score ? prev.highScore : this.score,
 			maxWaves: prev.maxWaves > this.waves ? prev.maxWaves : this.waves,
 			coins: this.coins,
@@ -111,27 +106,17 @@ class Player extends Entity {
 			this.speedX = 0;
 		}
 
+		if (VK.isKeyDown("SPACE")) {
+			this.shoot();
+		}
+
 		// Move the player
 		this.x += this.speedX * step;
 		this.y += this.speedY * step;
 	}
 
-	private handleWeapons() {
-		if (this.cooldown > 0) {
-			this.cooldown -= this.cooldownDecrement;
-		}
-
-		if (this.keyHandler.isKeyDown("SPACE")) {
-			this.shoot();
-		}
-	}
-
 	private shoot() {
-		if (this.cooldown <= 0 && this.handler) {
-			this.handler.entities.push(new Laser(this.x + this.w / 2 - 2, this.y, "PLAYER"));
-
-			this.cooldown = 120;
-		}
+		this.weapon.shoot();
 	}
 
 	private renderHitBox(ctx: CanvasRenderingContext2D) {
@@ -146,11 +131,6 @@ class Player extends Entity {
 
 		ctx.fillStyle = Color["red-1"];
 		ctx.fillRect(this.x - this.w, this.y + this.h * 2, this.health, 4);
-
-		// Weapon Cool-down
-		const clampCooldown = Maths.clamp(this.cooldown, 0, 100);
-		ctx.fillStyle = Color["yellow-1"];
-		ctx.fillRect(this.x - this.w, this.y + this.h * 2 + 8, clampCooldown, 4);
 
 		// Score, Waves & Coins
 		ctx.font = "yoster 16px";
@@ -189,7 +169,7 @@ class Player extends Entity {
 	}
 
 	public update(step: number) {
-		this.handleWeapons();
+		this.weapon.update(this.x, this.y);
 		this.handleMovement(step);
 		this.handleEdgeWarping();
 	}
@@ -200,7 +180,7 @@ class Player extends Entity {
 	}
 
 	public assignHandler(entityHandler: EntityHandler) {
-		this.handler = entityHandler;
+		this.weapon.assignHandler(entityHandler);
 	}
 }
 

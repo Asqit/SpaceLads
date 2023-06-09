@@ -56,7 +56,8 @@ export class Game {
 		if (this.ctx) {
 			this.ctx.font = "16px monospace";
 			this.ctx.fillStyle = "#ffffff";
-			this.ctx.fillText(this.fps.toString(), 30, Game.HEIGHT - 16);
+			this.ctx.fillText(`FPS: ${this.fps.toString()}`, 30, Game.HEIGHT - 16);
+			this.ctx.fillText(`DELTA: ${this.delta.toString()}`, 30, Game.HEIGHT - 32);
 		}
 	}
 

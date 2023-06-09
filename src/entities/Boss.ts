@@ -3,20 +3,22 @@ import { Entity } from "./Entity";
 import player from "./Player";
 import { Maths, Vector2D } from "~/utils/Math";
 import { EntityHandler } from "~/utils/EntityHandler";
-import { Laser } from "./Laser";
 import { Particle } from "./Particle";
 import { Color } from "~/utils/Color";
+import { IWeapon } from "~/interfaces/IWeapon";
+import { Shooty } from "~/weapons/Shooty";
 
 export class Boss extends Entity {
-	private health: number = 100;
+	private health: number = 1000;
 	private speedX: number = 0;
-	private cooldown: number = 0;
 	private handler: EntityHandler;
 	private color: string = "#ff0000";
+	private weapon: IWeapon = new Shooty("ENEMY", this.w, this.h);
 
 	constructor(handler: EntityHandler) {
 		super(Game.WIDTH / 2 - 32, 64, 64, 64, "BOSS");
 		this.handler = handler;
+		this.weapon.assignHandler(handler);
 	}
 
 	public hit() {
@@ -34,6 +36,8 @@ export class Boss extends Entity {
 			);
 		}
 
+		player.incrementScore();
+
 		if (this.health > 0) {
 			this.health -= 25;
 
@@ -44,10 +48,7 @@ export class Boss extends Entity {
 	}
 
 	private shoot() {
-		if (this.cooldown <= 0) {
-			this.handler.entities.push(new Laser(this.x + this.w / 2 - 2, this.y + this.h, "ENEMY"));
-			this.cooldown = 100;
-		}
+		this.weapon.shoot();
 	}
 
 	public update(step: number): void {
@@ -61,19 +62,19 @@ export class Boss extends Entity {
 			this.shoot();
 		}
 
-		if (this.cooldown > 0) {
-			this.cooldown -= 12;
-		}
-
 		if (player.isActive === false) {
 			this.y += 300 * step;
 		}
 
 		this.x += this.speedX * step;
+		this.weapon.update(this.x, this.y);
 	}
 
 	public render(step: number, ctx: CanvasRenderingContext2D): void {
 		ctx.fillStyle = this.color;
 		ctx.fillRect(this.x, this.y, this.w, this.h);
+
+		ctx.fillStyle = Color["red-0"];
+		ctx.fillRect(this.x, this.y - 25, this.health, 10);
 	}
 }
